@@ -96,7 +96,7 @@ const main = () => {
 
             // format the string
             let casesDiff = cases - recentCases, deathsDiff = deaths - recentDeaths;
-            if (casesDiff >= 0 || deathsDiff >= 0) {
+            if (casesDiff > 0 || deathsDiff > 0) {
                 console.log("updated detected sending message...");
                 let now = new Date();
                 let msg = `❗*Coronavirus Updates*❗\n\n*Total Cases: ${cases.toLocaleString()} (${(casesDiff >= 0 ? "+" : "")}${casesDiff})
