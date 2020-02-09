@@ -6,8 +6,8 @@ import Telegraf from 'telegraf';
 const second = 1000;
 const minute = 60 * second;
 
-const key = process.env.TELEGRAM_KEY as string;
-const channel = process.env.TELEGRAM_CHANNEL as string;
+const key = process.env.TG_BOT_TOKEN as string;
+const channel = process.env.TG_CHANNEL_NAME as string;
 
 const pattern = /([0-9]+,?[0-9]+)/g;
 
@@ -86,7 +86,7 @@ const init = () => {
     main();
 }
 
-const main = async () => {
+const main = () => {
     let bot = new Telegraf(key);
     console.log("initialized telegram bot");
     // set an interval to run every 5 minutes
@@ -112,7 +112,6 @@ const main = async () => {
             }
         })
     }, 5 * minute);
-
 
     console.log("polling every 5 minutes");
 }
