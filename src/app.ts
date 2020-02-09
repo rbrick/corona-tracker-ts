@@ -66,8 +66,10 @@ const scrape = async (callback?: (cases: number, death: number) => void) => {
 }
 
 const init = () => {
+    console.log("initializing...");
     // check if the last record exists
     if (fs.existsSync("latestRecord")) {
+        console.log("loading previous data");
         // read the latest record file
         fs.readFile("latestRecord", (err, data) => {
             var contents = data.toString().split(",");
@@ -76,13 +78,14 @@ const init = () => {
             recentCases = Number.parseInt(contents[0]);
             // set the recent deaths to what was found in file
             recentDeaths = Number.parseInt(contents[1]);
+            console.log("previous data loaded");
         });
     }
 }
 
 const main = async () => {
     let bot = new Telegraf(key);
-
+    console.log("initialized telegram bot");
     // set an interval to run every 5 minutes
     setInterval(async () => {
         // scrape the page
@@ -90,18 +93,31 @@ const main = async () => {
 
             // format the string
             let casesDiff = cases - recentCases, deathsDiff = deaths - recentDeaths;
-            let now = new Date();
-            let msg = `❗*Coronavirus Updates*❗\n\n*Total Cases: ${cases.toLocaleString()} (${(casesDiff >= 0 ? "+" : "")}${casesDiff})
+            if (casesDiff >= 0 || deathsDiff >= 0) {
+                console.log("updated detected sending message...");
+                let now = new Date();
+                let msg = `❗*Coronavirus Updates*❗\n\n*Total Cases: ${cases.toLocaleString()} (${(casesDiff >= 0 ? "+" : "")}${casesDiff})
             *\n*Total Deaths: ${deaths.toLocaleString()} (${(deathsDiff >= 0 ? "\+" : "")}${deathsDiff})*\n*Last Updated: ${now.toLocaleDateString()} ${now.toTimeString()}*\n\n@CoronavirusStatNews`;
 
-            recentCases = cases, recentDeaths = deaths;
-            // write to local cache
-            fs.writeFile("latestRecord", `${cases},${deaths}`, () => { /* ignored */ }); 
-            // send a message!
-            bot.telegram.sendMessage(`@${channel}`, escape(msg, "_[]()~`>#+-=|{}.!"), { parse_mode: "MarkdownV2", disable_notification: !(casesDiff >= 200 || deathsDiff >= 200) });
+                recentCases = cases, recentDeaths = deaths;
+                // write to local cache
+                fs.writeFile("latestRecord", `${cases},${deaths}`, () => { /* ignored */ });
+                // send a message!
+                bot.telegram.sendMessage(`@${channel}`, escape(msg, "_[]()~`>#+-=|{}.!"), { parse_mode: "MarkdownV2", disable_notification: !(casesDiff >= 200 || deathsDiff >= 200) });
+                
+                console.log("message sent!");
+            }
         })
     }, 5 * minute);
+
+
+    console.log("polling every 5 minutes");
+
+    process.on("SIGTERM", () => {
+        console.log("goodbye.");
+    });
 }
 
 init();
 main();
+
