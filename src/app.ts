@@ -81,9 +81,12 @@ const init = () => {
             console.log("previous data loaded");
         });
     }
+
+
+    main();
 }
 
-const main = async () => {
+const main = async() => {
     let bot = new Telegraf(key);
     console.log("initialized telegram bot");
     // set an interval to run every 5 minutes
@@ -104,7 +107,7 @@ const main = async () => {
                 fs.writeFile("latestRecord", `${cases},${deaths}`, () => { /* ignored */ });
                 // send a message!
                 bot.telegram.sendMessage(`@${channel}`, escape(msg, "_[]()~`>#+-=|{}.!"), { parse_mode: "MarkdownV2", disable_notification: !(casesDiff >= 200 || deathsDiff >= 200) });
-                
+
                 console.log("message sent!");
             }
         })
@@ -115,5 +118,4 @@ const main = async () => {
 }
 
 init();
-main();
 
