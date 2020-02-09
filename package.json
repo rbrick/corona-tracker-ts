@@ -2,7 +2,7 @@
   "name": "corona-tracker-ts",
   "version": "1.0.0",
   "description": "Telegram Bot for tracking information on the 2019 Novel Coronavirus",
-  "main": "src/app.js",
+  "main": "compiled/app.js",
   "scripts": {
     "start": "node compiled/app.js",
     "compile": "tsc"
