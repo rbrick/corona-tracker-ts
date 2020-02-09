@@ -100,7 +100,7 @@ const main = () => {
             if (casesDiff > 0 || deathsDiff > 0) {
                 console.log("updated detected sending message...");
 
-                let msg = `❗*Coronavirus Updates*❗\n\n*Total Cases: ${cases.toLocaleString()} (${(casesDiff >= 0 ? "+" : "")}${casesDiff})*\n*Total Deaths: ${deaths.toLocaleString()} (${(deathsDiff >= 0 ? "\+" : "")}${deathsDiff})*\n*Last Updated: ${dateformat(new Date(), "mmm d yyyy @ HH:MMtt Z")}*\n\n@CoronavirusStatNews`;
+                let msg = `❗*Coronavirus Updates*❗\n\n*Total Cases: ${cases.toLocaleString()} (${(casesDiff >= 0 ? "+" : "")}${casesDiff})*\n*Total Deaths: ${deaths.toLocaleString()} (${(deathsDiff >= 0 ? "\+" : "")}${deathsDiff})*\n*Last Updated: ${dateformat(new Date(), "mmm d yyyy @ hh:MMtt Z")}*\n\n@CoronavirusStatNews`;
 
                 recentCases = cases, recentDeaths = deaths;
                 // write to local cache
@@ -114,7 +114,11 @@ const main = () => {
     }, 5 * minute);
 
     console.log("polling every 5 minutes");
+
 }
 
-init();
 
+
+console.log(`${dateformat(new Date(), "mmm d yyyy @ HH:MMtt Z")}`);
+
+// init();
