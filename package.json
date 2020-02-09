@@ -19,7 +19,9 @@
   "homepage": "https://github.com/rbrick/corona-tracker-ts#readme",
   "dependencies": {
     "@types/cheerio": "^0.22.16",
+    "@types/dateformat": "^3.0.1",
     "cheerio": "^1.0.0-rc.3",
+    "dateformat": "^3.0.3",
     "telegraf": "^3.36.0"
   }
 }

@@ -2,6 +2,7 @@ import cheerio from 'cheerio';
 import fs from 'fs';
 import https from 'https';
 import Telegraf from 'telegraf';
+import dateformat from 'dateformat';
 
 const second = 1000;
 const minute = 60 * second;
@@ -98,9 +99,8 @@ const main = () => {
             let casesDiff = cases - recentCases, deathsDiff = deaths - recentDeaths;
             if (casesDiff > 0 || deathsDiff > 0) {
                 console.log("updated detected sending message...");
-                let now = new Date();
-                let msg = `❗*Coronavirus Updates*❗\n\n*Total Cases: ${cases.toLocaleString()} (${(casesDiff >= 0 ? "+" : "")}${casesDiff})
-            *\n*Total Deaths: ${deaths.toLocaleString()} (${(deathsDiff >= 0 ? "\+" : "")}${deathsDiff})*\n*Last Updated: ${now.toLocaleDateString()} ${now.toTimeString()}*\n\n@CoronavirusStatNews`;
+
+                let msg = `❗*Coronavirus Updates*❗\n\n*Total Cases: ${cases.toLocaleString()} (${(casesDiff >= 0 ? "+" : "")}${casesDiff})*\n*Total Deaths: ${deaths.toLocaleString()} (${(deathsDiff >= 0 ? "\+" : "")}${deathsDiff})*\n*Last Updated: ${dateformat(new Date(), "mmm d yyyy @ HH:MMtt Z")}*\n\n@CoronavirusStatNews`;
 
                 recentCases = cases, recentDeaths = deaths;
                 // write to local cache
