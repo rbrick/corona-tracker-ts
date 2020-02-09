@@ -86,7 +86,7 @@ const init = () => {
     main();
 }
 
-const main = async() => {
+const main = async () => {
     let bot = new Telegraf(key);
     console.log("initialized telegram bot");
     // set an interval to run every 5 minutes
