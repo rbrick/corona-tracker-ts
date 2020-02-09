@@ -112,10 +112,6 @@ const main = async () => {
 
 
     console.log("polling every 5 minutes");
-
-    process.on("SIGTERM", () => {
-        console.log("goodbye.");
-    });
 }
 
 init();
