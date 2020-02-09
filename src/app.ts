@@ -13,8 +13,8 @@ const channel = process.env.TG_CHANNEL_NAME as string;
 const pattern = /([0-9]+,?[0-9]+)/g;
 
 const escape = (str: string, charset: string): string => {
-    var newS = ""; // create a new string
-    for (var i = 0; i < str.length; i++) {
+    let newS = ""; // create a new string
+    for (let i = 0; i < str.length; i++) {
         // check if the current character is within the charset
         if (charset.indexOf(str[i]) != -1) {
             newS += "\\"; // append the escape string
@@ -37,7 +37,6 @@ const scrape = async (callback?: (cases: number, death: number) => void) => {
         response.on('end', () => {
             // use cheerio to load & parse the data
             const $ = cheerio.load(data);
-
             // search for the content we're looking for
             $("div #mvp-content-main p").toArray().forEach(element => {
                 element.children.forEach(child => {
@@ -47,7 +46,7 @@ const scrape = async (callback?: (cases: number, death: number) => void) => {
                         let data: number[] = [];
 
                         // match the regex
-                        var match = pattern.exec(message);
+                        let match = pattern.exec(message);
                         do {
                             if (match) {
                                 data.push(Number.parseInt(match[0].replace(",", "")));
@@ -73,7 +72,7 @@ const init = () => {
         console.log("loading previous data");
         // read the latest record file
         fs.readFile("latestRecord", (err, data) => {
-            var contents = data.toString().split(",");
+            let contents = data.toString().split(",");
 
             // set the recent cases to what was found in the file
             recentCases = Number.parseInt(contents[0]);
@@ -82,8 +81,6 @@ const init = () => {
             console.log("previous data loaded");
         });
     }
-
-
     main();
 }
 
@@ -114,7 +111,6 @@ const main = () => {
     }, 5 * minute);
 
     console.log("polling every 5 minutes");
-
 }
 
 init();
