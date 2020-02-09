@@ -119,6 +119,6 @@ const main = () => {
 
 
 
-console.log(`${dateformat(new Date(), "mmm d yyyy @ HH:MMtt Z")}`);
+console.log(`${dateformat(new Date(), "mmm d yyyy @ hh:MMtt Z")}`);
 
 // init();
