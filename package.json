@@ -1,0 +1,25 @@
+{
+  "name": "corona-tracker-ts",
+  "version": "1.0.0",
+  "description": "Telegram Bot for tracking information on the 2019 Novel Coronavirus",
+  "main": "src/app.ts",
+  "scripts": {
+    "start": "node compiled/app.js",
+    "compile": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/rbrick/corona-tracker-ts.git"
+  },
+  "author": "Ryan Willette",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rbrick/corona-tracker-ts/issues"
+  },
+  "homepage": "https://github.com/rbrick/corona-tracker-ts#readme",
+  "dependencies": {
+    "@types/cheerio": "^0.22.16",
+    "cheerio": "^1.0.0-rc.3",
+    "telegraf": "^3.36.0"
+  }
+}
