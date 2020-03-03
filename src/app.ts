@@ -96,14 +96,16 @@ const main = () => {
             let casesDiff = cases - recentCases, deathsDiff = deaths - recentDeaths;
             if (casesDiff > 0 || deathsDiff > 0) {
                 console.log("updated detected sending message...");
+                
+                const mortality = (deaths * 100) / cases;
 
-                let msg = `❗*Coronavirus Updates*❗\n\n*Total Cases: ${cases.toLocaleString()} (${(casesDiff >= 0 ? "+" : "")}${casesDiff})*\n*Total Deaths: ${deaths.toLocaleString()} (${(deathsDiff >= 0 ? "\+" : "")}${deathsDiff})*\n*Last Updated: ${dateformat(new Date(), "mmm d yyyy @ hh:MMtt Z")}*\n\n@CoronavirusStatNews`;
+                let msg = `❗*Coronavirus Updates*❗\n\n*Total Cases: ${cases.toLocaleString()} (${(casesDiff >= 0 ? "+" : "")}${casesDiff})*\n*Total Deaths: ${deaths.toLocaleString()} (${(deathsDiff >= 0 ? "\+" : "")}${deathsDiff})* (${mortality.toFixed(2)}%)\n*Last Updated: ${dateformat(new Date(), "mmm d yyyy @ hh:MMtt Z")}*\n\n@CoronavirusStatNews`;
 
                 recentCases = cases, recentDeaths = deaths;
                 // write to local cache
                 fs.writeFile("latestRecord", `${cases},${deaths}`, () => { /* ignored */ });
                 // send a message!
-                bot.telegram.sendMessage(`@${channel}`, escape(msg, "_[]()~`>#+-=|{}.!"), { parse_mode: "MarkdownV2", disable_notification: !(casesDiff >= 200 || deathsDiff >= 200) });
+                bot.telegram.sendMessage(`@${channel}`, escape(msg, "_[]()~`>#+-=|{}.!%"), { parse_mode: "MarkdownV2", disable_notification: !(casesDiff >= 200 || deathsDiff >= 200) });
 
                 console.log("message sent!");
             }
