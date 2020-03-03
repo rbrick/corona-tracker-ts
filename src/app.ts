@@ -10,7 +10,7 @@ const minute = 60 * second;
 const key = process.env.TG_BOT_TOKEN as string;
 const channel = process.env.TG_CHANNEL_NAME as string;
 
-const pattern = /([0-9]+,?[0-9]+)/g;
+const pattern = /([0-9]+,?[^\:][0-9]+)/g;
 
 const escape = (str: string, charset: string): string => {
     let newS = ""; // create a new string
